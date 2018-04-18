@@ -30,11 +30,18 @@ class CustomerTest < MiniTest::Test
     assert_equal(answer,result)
   end
 
-  # def test_drinks_in_pub
-  #   answer = 3
-  #   result =  @pub.drinks.length
-  #   assert_equal(answer,result)
-  # end
+  def test_customer_buy_drink
+    @customer1.buy_drink(@drink1.price)
+    answer = 15
+    result =  @customer1.wallet
+    assert_equal(answer,result)
+    @customer1.consume_drink(@drink1)
+    answer = 1
+    result =  @customer1.stomach.length
+    assert_equal(answer,result)
+  end
+
+   
 
 
 end

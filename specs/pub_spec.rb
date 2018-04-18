@@ -33,5 +33,17 @@ class PubTest < MiniTest::Test
     assert_equal(answer,result)
   end
 
+  def test_till_increase
+    @pub.sold_drink(@drink1.price)
+    answer = 3
+    result =  @pub.drinks.length
+    assert_equal(answer,result)
+  end
 
+  def test_drink_stock
+    @pub.drink_stock(@drink1)
+    answer = 2
+    result =  @pub.drinks.length
+    assert_equal(answer,result)
+  end
 end

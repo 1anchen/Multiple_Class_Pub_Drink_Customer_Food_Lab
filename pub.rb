@@ -8,6 +8,13 @@ class Pub
     @drinks = drinks
   end
 
+  def sold_drink(drink_price)
+    @till += drink_price
+  end
+
+  def drink_stock(drink_name)
+    @drinks.delete(drink_name)
+  end
 
 
 end
