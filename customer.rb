@@ -12,18 +12,22 @@ class Customer
 
   def buy_drink(drink_price)
     if @age >= 18
-    @wallet -= drink_price
-   else
+      @wallet -= drink_price
+    elsif @age < 18 && drink_price == 2
+      @wallet -= drink_price
+    else
      return
-   end 
+    end
   end
 
   def consume_drink(drink)
     if @age >= 18
-    @stomach.push(drink)
-   else
+      @stomach.push(drink)
+    elsif @age < 18 && drink == 2
+      @stomach.push(drink)
+    else
      return
-   end
+    end
   end
 
   def age_over_18(age)
