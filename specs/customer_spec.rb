@@ -3,6 +3,7 @@ require('minitest/rg')
 require_relative('../pub')
 require_relative('../drink')
 require_relative('../customer')
+require_relative('../food')
 
 class CustomerTest < MiniTest::Test
 
@@ -13,10 +14,14 @@ class CustomerTest < MiniTest::Test
     @drink3 = Drink.new("Soda", 2,  0)
     @drinks =[@drink1, @drink2, @drink3]
 
+    @food1 = Food.new("Chips",2,10)
+    @food2 = Food.new("Burger",3,15)
+    @food = [@food1,@food2]
+
     @customer1 = Customer.new("John",23,200)
     @customer2 = Customer.new("Mike",17,500)
 
-    @pub = Pub.new("Edinburgh Arms",0,@drinks)
+    @pub = Pub.new("Edinburgh Arms",0,@drinks,@food)
    end
 
   def test_customer_name
@@ -61,6 +66,19 @@ class CustomerTest < MiniTest::Test
     assert_equal(answer,result)
   end
 
+  def test_customer_buy_food__true
+
+    @customer1.buy_food(@food1.price)
+    answer = 198
+    result =  @customer1.wallet
+    assert_equal(answer,result)
+
+    @customer1.consume_food(@food1)
+    answer = 1
+    result =  @customer1.stomach.length
+    assert_equal(answer,result)
+  end
+
   def test_customer_age
     answer = 17
     result =  @customer2.age
@@ -99,6 +117,16 @@ class CustomerTest < MiniTest::Test
     @customer1.getting_drunk(@drink1.alcohol)
     answer = true
     result =  @customer1.refuse_to_serve
+    assert_equal(answer,result)
+  end
+
+  def test_food_rejuvenation_reduce_drunkness
+    @customer1.getting_drunk(@drink1.alcohol)
+    @customer1.getting_drunk(@drink2.alcohol)
+    @customer1.buy_food(@food1.price)
+    @customer1.food_rejuvenation_reduce_drunkness(@food1.rejuvenation)
+    answer = 25
+    result =  @customer1.drunkness
     assert_equal(answer,result)
   end
 end

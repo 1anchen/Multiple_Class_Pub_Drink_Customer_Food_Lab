@@ -43,4 +43,16 @@ class Customer
     return true if @drunkness >= 50
   end
 
+  def buy_food(food_price)
+      @wallet -= food_price
+  end
+
+  def consume_food(food)
+      @stomach.push(food)
+  end
+
+  def food_rejuvenation_reduce_drunkness(rejuvenation)
+    @drunkness -= rejuvenation
+  end
+
 end

@@ -3,19 +3,25 @@ require('minitest/rg')
 require_relative('../pub')
 require_relative('../drink')
 require_relative('../customer')
+require_relative('../food')
 
 class PubTest < MiniTest::Test
 
   def setup
+
     @drink1 = Drink.new("Wine", 5, 20)
     @drink2 = Drink.new("Bear", 4, 15)
     @drink3 = Drink.new("Soda", 2,  0)
     @drinks =[@drink1, @drink2, @drink3]
 
+    @food1 = Food.new("Chips",2,10)
+    @food2 = Food.new("Burger",3,15)
+    @food = [@food1,@food2]
+
     @customer1 = Customer.new("John",23,200)
     @customer2 = Customer.new("Mike",17,500)
 
-    @pub = Pub.new("Edinburgh Arms",0,@drinks)
+    @pub = Pub.new("Edinburgh Arms",0,@drinks,@food)
    end
 
   def test_pub_name
@@ -62,7 +68,19 @@ class PubTest < MiniTest::Test
     assert_equal(answer,result)
   end
 
+  def test_total_stock
+    answer = 0
+    result =  @pub.stock[@total_stock]
+    assert_equal(answer,result)
+  end
 
 
+  def test_total_stock_with_food_and_drink
+
+    @pub.check_total_stock(@drinks,@food)
+    answer = 5
+    result =  @pub.stock[@total_stock]
+    assert_equal(answer,result)
+  end
 
 end
